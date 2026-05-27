@@ -4,64 +4,147 @@
     <meta charset="UTF-8">
     <title>For my wife karolinka</title>
     
-    <!-- ПОДКЛЮЧЕНИЕ ТВОЕЙ СОБСТВЕННОЙ ИКОНКИ СЕРДЕЧКА -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=999">
+    <!-- Иконка-сердечко -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
     
-    <!-- Тотальная защита от любых плагинов тёмной темы (Dark Reader Lock) -->
+    <!-- Тотальная защита от любых плагинов тёмной темы -->
     <meta name="darkreader-lock">
-    
-    <!-- Приказ мобильным телефонам отображать сайт ТОЛЬКО в светлой теме -->
     <meta name="color-scheme" content="light only">
     
-    <!-- Подключение файла стилей CSS -->
-    <link rel="stylesheet" href="style.css?v=25">
+    <link rel="stylesheet" href="style.css?v=150">
     
     <style>
-        /* Дополнительная защита видимости карточки, когда она активируется */
-        .card.active {
-            display: block !important;
+        .card.active, .side-card.active {
+            display: flex !important;
             visibility: visible !important;
-            opacity: 1 !important;
+        }
+        
+        .arrow-hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        @media (max-width: 950px) {
+            #main-container {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 25px !important;
+                margin-top: 20px !important;
+            }
+            .side-card {
+                transform: translateY(30px) scale(0.95) !important;
+                max-width: 340px !important;
+            }
+            .side-card.active {
+                transform: translateY(0) scale(1) !important;
+            }
         }
     </style>
 </head>
-<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; margin: 0; font-family: sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; color-scheme: light !important;">
+<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; margin: 0; font-family: sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; color-scheme: light !important; padding: 20px; box-sizing: border-box; position: relative;">
 
-    <!-- Контейнер для падающих сердечек на заднем фоне -->
+    <!-- Контейнер для лавины падающих сердечек -->
     <div id="hearts-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1;"></div>
 
-    <!-- СЦЕНА 1: КОНВЕРТ (Абсолютная защита цветов через инлайновые стили) -->
-    <div id="envelope-scene" style="position: relative; z-index: 20; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; transition: all 0.8s ease; color-scheme: light !important;">
-        <!-- Сам конверт -->
-        <div class="envelope" style="position: relative; width: 200px; height: 140px; background: #ff758f !important; background-color: #ff758f !important; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); --darkreader-inline-bgimage: none !important; --darkreader-inline-bgcolor: #ff758f !important;">
-            <!-- Клапан конверта (открывается за 1.5 секунды) -->
-            <div class="flap" style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 80px solid #ff4d6d !important; transform-origin: top; transition: transform 1.5s ease; z-index: 2; --darkreader-inline-border-top: #ff4d6d !important;"></div>
-            <!-- Передний кармашек конверта -->
-            <div class="pocket" style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 100px solid #ff8fa3 !important; border-right: 100px solid #ff8fa3 !important; border-bottom: 70px solid #ff8fa3 !important; border-top: 70px solid transparent; border-radius: 0 0 10px 10px; z-index: 3; --darkreader-inline-border-left: #ff8fa3 !important; --darkreader-inline-border-right: #ff8fa3 !important; --darkreader-inline-border-bottom: #ff8fa3 !important;"></div>
-            <!-- Пульсирующее сердечко строго по центру шва -->
+    <!-- СЦЕНА 1: КОНВЕРТ (Выставили z-index: 50, теперь он гарантированно выше всех!) -->
+    <div id="envelope-scene" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 50; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; transition: all 0.8s ease; color-scheme: light !important; width: 200px;">
+        <div class="envelope" style="position: relative; width: 200px; height: 140px; background: #ff758f !important; background-color: #ff758f !important; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="flap" style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 80px solid #ff4d6d !important; transform-origin: top; transition: transform 1.5s ease; z-index: 2;"></div>
+            <div class="pocket" style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 100px solid #ff8fa3 !important; border-right: 100px solid #ff8fa3 !important; border-bottom: 70px solid #ff8fa3 !important; border-top: 70px solid transparent; border-radius: 0 0 10px 10px; z-index: 3;"></div>
             <div class="envelope-heart" style="position: absolute; top: 52px; left: 50%; font-size: 30px; z-index: 4; display: flex; justify-content: center; align-items: center; width: 30px; height: 30px; animation: pulseCentered 1.5s infinite;">❤️</div>
         </div>
-        
-        <!-- Кнопка открытия конверта -->
-        <button id="open-button" onclick="openEnvelope()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 14px 32px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: 0.3s; z-index: 5; --darkreader-inline-bgcolor: #ff4d6d !important; --darkreader-inline-color: #ffffff !important;">Open ✉️</button>
+        <button id="open-button" onclick="openEnvelope()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 14px 32px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: 0.3s; z-index: 55; white-space: nowrap;">Open ✉️</button>
     </div>
 
-    <!-- СЦЕНА 2: БЕЛАЯ КАРТОЧКА (Проявляется супер-плавно за 3 секунды) -->
-    <div id="love-card" class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; position: absolute; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 3s ease-in-out, transform 3s ease-in-out; transform: scale(0.95);">
-        <div class="heart" style="font-size: 50px; animation: pulse 1.5s infinite;">❤️</div>
-        <h1 style="color: #ff4d6d !important; margin-top: 10px;">I LOVE YOU!</h1>
-        <p style="color: #4a4a4a !important;">You are the best thing ever happend in my life💖</p>
+    <!-- ГОРИЗОНТАЛЬНЫЙ РЯД ДЛЯ ВСЕХ КАРТОЧЕК -->
+    <div id="main-container" style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 25px; width: 100%; max-width: 1200px; position: relative; z-index: 10;">
         
-        <!-- Внутренняя кнопка -->
-        <button id="love-button" onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s;">click here</button>
-        
-        <!-- Скрытая розовая плашка с финальным сообщением -->
-        <div id="secret-message" class="hidden" style="background: #fff0f3 !important; background-color: #fff0f3 !important; border-left: 5px solid #ff4d6d !important; padding: 15px; border-radius: 10px; margin-top: 20px; display: none; --darkreader-inline-bgcolor: #fff0f3 !important;">
-            <p style="color: #ff4d6d !important; font-weight: bold; margin: 0; --darkreader-inline-color: #ff4d6d !important;">Good girl😘You are my sunshine, my only sunshine, you make me happy and I LOVE YOU!❤️‍🔥</p>
+        <!-- ЛЕВОЕ ОКОШКО (z-index: -10 и pointer-events: none, чтобы карточка не мешала кликать!) -->
+        <div id="known-card" style="background: #ffffff !important; background-color: #ffffff !important; padding: 30px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 340px; display: flex; opacity: 0; visibility: hidden; position: relative; z-index: -10; pointer-events: none; transform: translateX(40px) scale(0.95); transition: opacity 1.5s ease-out, transform 1.5s ease-out, visibility 1.5s; box-sizing: border-box; flex-direction: column; align-items: center; border-bottom: 5px solid #ff4d6d !important;">
+            
+            <!-- ЧАСЫ КУПИДОНА 1 -->
+            <div class="cupid-clock" style="width: 110px; height: 110px; margin-bottom: 15px; background: #fff0f3 !important; background-color: #fff0f3 !important; border: 3px solid #ff4d6d !important; border-radius: 50%; position: relative; display: flex; justify-content: center; align-items: center;">
+                <div style="position: absolute; top: 4px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="position: absolute; right: 5px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="position: absolute; bottom: 4px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="position: absolute; left: 5px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="width: 6px; height: 6px; background: #ff4d6d; border-radius: 50%; z-index: 15; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                
+                <div id="hour-hand-1" class="arrow-hand" style="width: 4px; height: 26px; left: calc(50% - 2px); --darkreader-inline-bgcolor: #ff758f !important;">
+                    <div style="font-size: 6px; color: #ff758f; margin-top: -3px; transform: rotate(180deg); line-height: 1;">🔻</div>
+                    <div style="width: 4px; height: 22px; background: #ff758f;"></div>
+                    <div style="font-size: 5px; color: #ff758f; margin-bottom: -2px; line-height: 1;">📐</div>
+                </div>
+                <div id="min-hand-1" class="arrow-hand" style="width: 3px; height: 36px; left: calc(50% - 1.5px); --darkreader-inline-bgcolor: #ff4d6d !important;">
+                    <div style="font-size: 7px; color: #ff4d6d; margin-top: -3px; transform: rotate(180deg); line-height: 1;">🔻</div>
+                    <div style="width: 3px; height: 32px; background: #ff4d6d;"></div>
+                    <div style="font-size: 6px; color: #ff4d6d; margin-bottom: -2px; line-height: 1;">🏹</div>
+                </div>
+                <div id="sec-hand-1" class="arrow-hand" style="width: 2px; height: 46px; left: calc(50% - 1px); --darkreader-inline-bgcolor: #ff4d6d !important;">
+                    <div style="font-size: 9px; color: #ff4d6d; margin-top: -5px; line-height: 1;">❤️</div>
+                    <div style="width: 2px; height: 42px; background: #ff4d6d;"></div>
+                    <div style="font-size: 8px; color: #ff758f; margin-bottom: -4px; line-height: 1; transform: rotate(180deg);">🔻</div>
+                </div>
+            </div>
+
+            <div style="font-size: 25px; margin-bottom: 5px;">👀</div>
+            <div style="font-size: 13px; color: #7a7a7a !important; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">We have known each other for:</div>
+            <div id="known-timer" style="font-size: 16px; color: #4a4a4a !important; font-weight: bold; line-height: 1.4; text-align: center;">Calculating...</div>
         </div>
+      <!-- ЦЕНТРАЛЬНОЕ ОКНО -->
+        <div id="love-card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 360px; display: none; opacity: 0; transition: opacity 2s ease-in-out, transform 2s ease-in-out; transform: scale(0.95); box-sizing: border-box; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 12;">
+            <div class="heart" style="font-size: 50px; animation: pulse 1.5s infinite;">❤️</div>
+            <h1 style="color: #ff4d6d !important; margin-top: 15px; margin-bottom: 10px; width: 100%; font-size: 28px;">I LOVE YOU!</h1>
+            <p style="color: #4a4a4a !important; margin-bottom: 25px; font-size: 16px; line-height: 1.4; width: 100%;">You are the best thing ever happend in my life💖</p>
+            
+            <button id="love-button" onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 30px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s;">click here</button>
+            
+            <div id="secret-message" style="background: #fff0f3 !important; background-color: #fff0f3 !important; border-left: 5px solid #ff4d6d !important; padding: 15px; border-radius: 10px; margin-top: 20px; display: none; width: 100%; box-sizing: border-box; --darkreader-inline-bgcolor: #fff0f3 !important;">
+                <p style="color: #ff4d6d !important; font-weight: bold; margin: 0; font-size: 15px; line-height: 1.4; --darkreader-inline-color: #ff4d6d !important;">Good girl😘You are my sunshine, my only sunshine, you make me happy and I LOVE YOU!❤️‍🔥</p>
+            </div>
+        </div>
+
+        <!-- ПРАВОЕ ОКОШКО (z-index: -10 и pointer-events: none, защита от перекрытия!) -->
+        <div id="dating-card" style="background: #ffffff !important; background-color: #ffffff !important; padding: 30px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 340px; display: flex; opacity: 0; visibility: hidden; position: relative; z-index: -10; pointer-events: none; transform: translateX(-40px) scale(0.95); transition: opacity 1.5s ease-out, transform 1.5s ease-out, visibility 1.5s; box-sizing: border-box; flex-direction: column; align-items: center; border-bottom: 5px solid #ff4d6d !important;">
+            
+            <!-- ЧАСЫ КУПИДОНА 2 -->
+            <div class="cupid-clock" style="width: 110px; height: 110px; margin-bottom: 15px; background: #fff0f3 !important; background-color: #fff0f3 !important; border: 3px solid #ff4d6d !important; border-radius: 50%; position: relative; display: flex; justify-content: center; align-items: center; --darkreader-inline-bgcolor: #fff0f3 !important;">
+                <div style="position: absolute; top: 4px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="position: absolute; right: 5px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="position: absolute; bottom: 4px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="position: absolute; left: 5px; color: #ff4d6d; font-size: 10px;">❤️</div>
+                <div style="width: 6px; height: 6px; background: #ff4d6d; border-radius: 50%; z-index: 15; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                
+                <div id="hour-hand-2" class="arrow-hand" style="width: 3px; height: 26px; left: calc(50% - 1.5px); --darkreader-inline-bgcolor: #ff758f !important;">
+                    <div style="font-size: 6px; color: #ff758f; margin-top: -3px; transform: rotate(180deg); line-height: 1;">🔻</div>
+                    <div style="width: 3px; height: 22px; background: #ff758f;"></div>
+                    <div style="font-size: 5px; color: #ff758f; margin-bottom: -2px; line-height: 1;">📐</div>
+                </div>
+                <div id="min-hand-2" class="arrow-hand" style="width: 2px; height: 36px; left: calc(50% - 1px); --darkreader-inline-bgcolor: #ff4d6d !important;">
+                    <div style="font-size: 7px; color: #ff4d6d; margin-top: -3px; transform: rotate(180deg); line-height: 1;">🔻</div>
+                    <div style="width: 2px; height: 32px; background: #ff4d6d;"></div>
+                    <div style="font-size: 6px; color: #ff4d6d; margin-bottom: -2px; line-height: 1;">🏹</div>
+                </div>
+                <div id="sec-hand-2" class="arrow-hand" style="width: 2px; height: 46px; left: calc(50% - 1px); --darkreader-inline-bgcolor: #ff4d6d !important;">
+                    <div style="font-size: 9px; color: #ff4d6d; margin-top: -5px; line-height: 1;">❤️</div>
+                    <div style="width: 2px; height: 42px; background: #ff4d6d;"></div>
+                    <div style="font-size: 8px; color: #ff758f; margin-bottom: -4px; line-height: 1; transform: rotate(180deg);">🔻</div>
+                </div>
+            </div>
+
+            <div style="font-size: 25px; margin-bottom: 5px;">🌹</div>
+            <div style="font-size: 13px; color: #7a7a7a !important; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">We have been dating for:</div>
+            <div id="dating-timer" style="font-size: 16px; color: #4a4a4a !important; font-weight: bold; line-height: 1.4; text-align: center;">Calculating...</div>
+        </div>
+
     </div>
 
-    <!-- Подключение файла логики -->
     <script src="script.js"></script>
 </body>
 </html>
