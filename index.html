@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>For my wife karolinka</title>
     
-    <!-- Иконка-сердечко (полностью починена и проверена) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <!-- ПОДКЛЮЧЕНИЕ ТВОЕЙ СОБСТВЕННОЙ ИКОНКИ СЕРДЕЧКА -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=999">
     
-    <!-- Замок от плагина Dark Reader -->
+    <!-- Тотальная защита от любых плагинов тёмной темы (Dark Reader Lock) -->
     <meta name="darkreader-lock">
     
-    <!-- Жесткая защита от темной темы телефона -->
+    <!-- Приказ мобильным телефонам отображать сайт ТОЛЬКО в светлой теме -->
     <meta name="color-scheme" content="light only">
-    <link rel="stylesheet" href="style.css?v=21">
+    
+    <!-- Подключение файла стилей CSS -->
+    <link rel="stylesheet" href="style.css?v=25">
+    
     <style>
         /* Дополнительная защита видимости карточки, когда она активируется */
         .card.active {
@@ -27,7 +30,7 @@
     <!-- Контейнер для падающих сердечек на заднем фоне -->
     <div id="hearts-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1;"></div>
 
-    <!-- СЦЕНА 1: КОНВЕРТ с абсолютной защитой от темных тем -->
+    <!-- СЦЕНА 1: КОНВЕРТ (Абсолютная защита цветов через инлайновые стили) -->
     <div id="envelope-scene" style="position: relative; z-index: 20; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; transition: all 0.8s ease; color-scheme: light !important;">
         <!-- Сам конверт -->
         <div class="envelope" style="position: relative; width: 200px; height: 140px; background: #ff758f !important; background-color: #ff758f !important; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); --darkreader-inline-bgimage: none !important; --darkreader-inline-bgcolor: #ff758f !important;">
@@ -39,18 +42,18 @@
             <div class="envelope-heart" style="position: absolute; top: 52px; left: 50%; font-size: 30px; z-index: 4; display: flex; justify-content: center; align-items: center; width: 30px; height: 30px; animation: pulseCentered 1.5s infinite;">❤️</div>
         </div>
         
-        <!-- Кнопка открытия конверта (защищенная от инверсии) -->
+        <!-- Кнопка открытия конверта -->
         <button id="open-button" onclick="openEnvelope()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 14px 32px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: 0.3s; z-index: 5; --darkreader-inline-bgcolor: #ff4d6d !important; --darkreader-inline-color: #ffffff !important;">Open ✉️</button>
     </div>
 
-    <!-- СЦЕНА 2: БЕЛАЯ КАРТОЧКА (Твой обновленный английский текст) -->
+    <!-- СЦЕНА 2: БЕЛАЯ КАРТОЧКА (Проявляется супер-плавно за 3 секунды) -->
     <div id="love-card" class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; position: absolute; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 3s ease-in-out, transform 3s ease-in-out; transform: scale(0.95);">
         <div class="heart" style="font-size: 50px; animation: pulse 1.5s infinite;">❤️</div>
         <h1 style="color: #ff4d6d !important; margin-top: 10px;">I LOVE YOU!</h1>
         <p style="color: #4a4a4a !important;">You are the best thing ever happend in my life💖</p>
         
         <!-- Внутренняя кнопка -->
-        <button id="love-button" onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s; --darkreader-inline-bgcolor: #ff4d6d !important; --darkreader-inline-color: #ffffff !important;">click here</button>
+        <button id="love-button" onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s;">click here</button>
         
         <!-- Скрытая розовая плашка с финальным сообщением -->
         <div id="secret-message" class="hidden" style="background: #fff0f3 !important; background-color: #fff0f3 !important; border-left: 5px solid #ff4d6d !important; padding: 15px; border-radius: 10px; margin-top: 20px; display: none; --darkreader-inline-bgcolor: #fff0f3 !important;">
