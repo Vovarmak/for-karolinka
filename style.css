@@ -1,13 +1,15 @@
 body {
-    background: linear-gradient(135deg, #ffe6e6, #ffb3ba);
+    background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important;
+    background-color: #ffe6e6 !important;
+    color: #4a4a4a !important;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
+    color-scheme: light; /* Отключает принудительный темный режим браузера */
 }
-
 .card {
     background: white;
     padding: 40px;
