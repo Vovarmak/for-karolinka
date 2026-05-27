@@ -20,22 +20,21 @@
     <!-- Контейнер для падающих сердечек на заднем фоне -->
     <div id="hearts-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1;"></div>
 
-    <!-- СЦЕНА 1: КОНВЕРТ -->
-    <div id="envelope-scene" style="position: relative; z-index: 20; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; transition: all 0.8s ease;">
+       <!-- СЦЕНА 1: КОНВЕРТ с абсолютной защитой от темных тем -->
+    <div id="envelope-scene" style="position: relative; z-index: 20; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; transition: all 0.8s ease; color-scheme: light !important;">
         <!-- Сам конверт -->
-        <div class="envelope" style="position: relative; width: 200px; height: 140px; background: #ff758f !important; background-color: #ff758f !important; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+        <div class="envelope" style="position: relative; width: 200px; height: 140px; background: #ff758f !important; background-color: #ff758f !important; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); --darkreader-inline-bgimage: none !important; --darkreader-inline-bgcolor: #ff758f !important;">
             <!-- Клапан конверта (открывается за 1.5 секунды) -->
-            <div class="flap" style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 80px solid #ff4d6d; transform-origin: top; transition: transform 1.5s ease; z-index: 2;"></div>
+            <div class="flap" style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 80px solid #ff4d6d !important; transform-origin: top; transition: transform 1.5s ease; z-index: 2; --darkreader-inline-border-top: #ff4d6d !important;"></div>
             <!-- Передний кармашек конверта -->
-            <div class="pocket" style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 100px solid #ff8fa3; border-right: 100px solid #ff8fa3; border-bottom: 70px solid #ff8fa3; border-top: 70px solid transparent; border-radius: 0 0 10px 10px; z-index: 3;"></div>
-            <!-- Пульсирующее сердечко строго по центру шва -->
+            <div class="pocket" style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 100px solid #ff8fa3 !important; border-right: 100px solid #ff8fa3 !important; border-bottom: 70px solid #ff8fa3 !important; border-top: 70px solid transparent; border-radius: 0 0 10px 10px; z-index: 3; --darkreader-inline-border-left: #ff8fa3 !important; --darkreader-inline-border-right: #ff8fa3 !important; --darkreader-inline-border-bottom: #ff8fa3 !important;"></div>
+            <!-- Пульсирующее сердечко строго по центру -->
             <div class="envelope-heart" style="position: absolute; top: 52px; left: 50%; font-size: 30px; z-index: 4; display: flex; justify-content: center; align-items: center; width: 30px; height: 30px; animation: pulseCentered 1.5s infinite;">❤️</div>
         </div>
         
-        <!-- Кнопка открытия конверта -->
-        <button id="open-button" onclick="openEnvelope()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 14px 32px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: 0.3s; z-index: 5;">Open ✉️</button>
+        <!-- Кнопка открытия конверта (полная блокировка инверсии) -->
+        <button id="open-button" onclick="openEnvelope()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 14px 32px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: 0.3s; z-index: 5; --darkreader-inline-bgcolor: #ff4d6d !important; --darkreader-inline-color: #ffffff !important;">Открыть письмо ✉️</button>
     </div>
-
     <!-- СЦЕНА 2: БЕЛАЯ КАРТОЧКА (Изначально прозрачная на заднем слое, проявляется супер-плавно за 3 секунды) -->
     <div id="love-card" class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; position: absolute; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 3s ease-in-out, transform 3s ease-in-out; transform: scale(0.95);">
         <div class="heart" style="font-size: 50px; animation: pulse 1.5s infinite;">❤️</div>
