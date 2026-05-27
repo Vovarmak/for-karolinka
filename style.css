@@ -1,83 +1,24 @@
-:root {
-    color-scheme: light !important;
-}
-html, body, div, p, h1 {
-    background-color: inherit;
-    darkreader-inline-bgcolor: none !important; /* Отключает перекраску от популярного плагина Dark Reader */
-}
-body {
-    background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important;
-    background-color: #ffe6e6 !important;
-    color: #4a4a4a !important;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    color-scheme: light; /* Отключает принудительный темный режим браузера */
-}
-.card {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-}
-
-h1 {
-    color: #ff4d6d;
-}
-
-p {
-    color: #4a4a4a;
-    line-height: 1.6;
-}
-
-.heart {
-    font-size: 50px;
-    animation: pulse 1.5s infinite;
-}
-
-/* Анимация биения сердца */
+/* Обычная пульсация для сердца внутри карточки */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
 
-button {
-    background-color: #ff4d6d;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: 0.3s;
+/* Специальная анимация: пульсация с удержанием центра для сердечка НА конверте */
+@keyframes pulseCentered {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.2); }
+    100% { transform: translateX(-50%) scale(1); }
 }
 
-button:hover {
-    background-color: #ff758f;
-    transform: translateY(-2px);
-}
-
+/* Технический класс скрытия */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
-#secret-message {
-    margin-top: 20px;
-    padding: 15px;
-    background: #fff0f3;
-    border-radius: 10px;
-    border-left: 5px solid #ff4d6d;
-    animation: fadeIn 1s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* Легкое приподнимание кнопок при наведении */
+button:hover {
+    transform: translateY(-3px) !important;
+    opacity: 0.9 !important;
 }
