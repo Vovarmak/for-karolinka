@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Для моей любимой</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <!-- Мета-тег, который жестко говорит телефонам: «Отображай сайт только в светлой теме!» -->
+    <meta name="color-scheme" content="light only">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
-<body>
+<!-- Задаем нежно-розовый градиентный фон прямо здесь -->
+<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; background-image: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; color: #4a4a4a !important; height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; font-family: sans-serif;">
 
-    <div class="card">
+    <!-- Задаем белый цвет карточки прямо здесь -->
+    <div class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%;">
         <div class="heart">❤️</div>
-        <h1>Я тебя люблю!</h1>
-        <p>Ты — самое лучшее, что случилось со мной. Спасибо за твою улыбку и тепло.</p>
+        <h1 style="color: #ff4d6d !important;">Я тебя люблю!</h1>
+        <p style="color: #4a4a4a !important;">Ты — самое лучшее, что случилось со мной. Спасибо за твою улыбку и тепло.</p>
         
-        <!-- Интерактивная кнопка -->
         <button onclick="revealSecret()">Нажми сюда, солнце</button>
         
-        <!-- Скрытый текст, который появится после клика -->
         <div id="secret-message" class="hidden">
-            <p>Ты прекрасна каждую секунду! И с каждым днем я люблю тебя все сильнее. ✨</p>
+            <p style="color: #4a4a4a !important;">Ты прекрасна каждую секунду! И с каждым днем я люблю тебя все сильнее. ✨</p>
         </div>
     </div>
 
