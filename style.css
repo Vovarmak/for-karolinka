@@ -1,3 +1,10 @@
+:root {
+    color-scheme: light !important;
+}
+html, body, div, p, h1 {
+    background-color: inherit;
+    darkreader-inline-bgcolor: none !important; /* Отключает перекраску от популярного плагина Dark Reader */
+}
 body {
     background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important;
     background-color: #ffe6e6 !important;
