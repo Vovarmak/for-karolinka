@@ -2,37 +2,55 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Для моей любимой</title>
+    <title>For my wife karolinka</title>
+    <!-- Жесткая защита от темной темы телефона -->
     <meta name="color-scheme" content="light only">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=17">
     <style>
-        /* Дополнительная супер-защита видимости карточки */
-        .card {
+        /* Дополнительная защита видимости карточки, когда она активируется */
+        .card.active {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
     </style>
 </head>
-<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; margin: 0; font-family: sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; margin: 0; font-family: sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; color-scheme: light !important;">
 
-    <!-- 1. КОНТЕЙНЕР ДЛЯ СЕРДЕЧЕК (Строго на заднем плане) -->
+    <!-- Контейнер для падающих сердечек на заднем фоне -->
     <div id="hearts-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1;"></div>
 
-    <!-- 2. ГЛАВНАЯ КАРТОЧКА (Строго на переднем плане) -->
-    <div class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; position: relative; z-index: 10; display: block !important;">
-        <div class="heart">❤️</div>
-        <h1 style="color: #ff4d6d !important; margin-top: 10px;">Я тебя люблю!</h1>
-        <p style="color: #4a4a4a !important;">Ты — самое лучшее, что случилось со мной. Спасибо за твою улыбку и тепло.</p>
+    <!-- СЦЕНА 1: КОНВЕРТ -->
+    <div id="envelope-scene" style="position: relative; z-index: 20; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; transition: all 0.8s ease;">
+        <!-- Сам конверт -->
+        <div class="envelope" style="position: relative; width: 200px; height: 140px; background: #ff758f !important; background-color: #ff758f !important; border-radius: 0 0 10px 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <!-- Клапан конверта (открывается за 1.5 секунды) -->
+            <div class="flap" style="position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 100px solid transparent; border-right: 100px solid transparent; border-top: 80px solid #ff4d6d; transform-origin: top; transition: transform 1.5s ease; z-index: 2;"></div>
+            <!-- Передний кармашек конверта -->
+            <div class="pocket" style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 100px solid #ff8fa3; border-right: 100px solid #ff8fa3; border-bottom: 70px solid #ff8fa3; border-top: 70px solid transparent; border-radius: 0 0 10px 10px; z-index: 3;"></div>
+            <!-- Пульсирующее сердечко строго по центру шва -->
+            <div class="envelope-heart" style="position: absolute; top: 52px; left: 50%; font-size: 30px; z-index: 4; display: flex; justify-content: center; align-items: center; width: 30px; height: 30px; animation: pulseCentered 1.5s infinite;">❤️</div>
+        </div>
         
-        <button onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s;">Нажми сюда, солнце</button>
+        <!-- Кнопка открытия конверта -->
+        <button id="open-button" onclick="openEnvelope()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 14px 32px; font-size: 18px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: 0.3s; z-index: 5;">Open ✉️</button>
+    </div>
+
+    <!-- СЦЕНА 2: БЕЛАЯ КАРТОЧКА (Изначально прозрачная на заднем слое, проявляется супер-плавно за 3 секунды) -->
+    <div id="love-card" class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; position: absolute; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 3s ease-in-out, transform 3s ease-in-out; transform: scale(0.95);">
+        <div class="heart" style="font-size: 50px; animation: pulse 1.5s infinite;">❤️</div>
+        <h1 style="color: #ff4d6d !important; margin-top: 10px;">I LOVE YOU!</h1>
+        <p style="color: #4a4a4a !important;">You are the best thing ever happend in my life💖</p>
+        <!-- Внутренняя кнопка -->
+        <button id="love-button" onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s;">click here</button>
         
-        <div id="secret-message" class="hidden" style="background: #fff0f3 !important; background-color: #fff0f3 !important; border-left: 5px solid #ff4d6d !important; padding: 15px; border-radius: 10px; margin-top: 20px;">
-            <p style="color: #ff4d6d !important; font-weight: bold; margin: 0;">Ты прекрасна каждую секунду! И с каждым днем я люблю тебя все сильнее. ✨</p>
+        <!-- Скрытая розовая плашка с финальным сообщением -->
+        <div id="secret-message" class="hidden" style="background: #fff0f3 !important; background-color: #fff0f3 !important; border-left: 5px solid #ff4d6d !important; padding: 15px; border-radius: 10px; margin-top: 20px; display: none;">
+            <p style="color: #ff4d6d !important; font-weight: bold; margin: 0;">Good girl😘You are my sunshine, my only sunshine, you make me happy and I LOVE YOU!❤️‍🔥</p>
         </div>
     </div>
 
-    <!-- 3. ПОДКЛЮЧЕНИЕ СКРИПТА (Строго в самом конце тела документа) -->
+    <!-- Подключение файла логики -->
     <script src="script.js"></script>
 </body>
 </html>
