@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Для моей любимой</title>
-    <!-- Мета-тег, который жестко говорит телефонам: «Отображай сайт только в светлой теме!» -->
+    <!-- Защита от темной темы -->
     <meta name="color-scheme" content="light only">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
-<!-- Задаем нежно-розовый градиентный фон прямо здесь -->
-<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; background-image: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; color: #4a4a4a !important; height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; font-family: sans-serif;">
+<body style="background: linear-gradient(135deg, #ffe6e6 0%, #ffb3ba 100%) !important; background-color: #ffe6e6 !important; margin: 0; font-family: sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden;">
 
-    <!-- Задаем белый цвет карточки прямо здесь -->
-    <div class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%;">
+    <!-- 1. КОНТЕЙНЕР ДЛЯ СЕРДЕЧЕК (он живет сам по себе на заднем плане) -->
+    <div id="hearts-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1;"></div>
+
+    <!-- 2. ГЛАВНАЯ КАРТОЧКА (она зафиксирована поверх сердечек за счет z-index: 10) -->
+    <div class="card" style="background: #ffffff !important; background-color: #ffffff !important; color: #4a4a4a !important; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; position: relative; z-index: 10;">
         <div class="heart">❤️</div>
-        <h1 style="color: #ff4d6d !important;">Я тебя люблю!</h1>
+        <h1 style="color: #ff4d6d !important; margin-top: 10px;">Я тебя люблю!</h1>
         <p style="color: #4a4a4a !important;">Ты — самое лучшее, что случилось со мной. Спасибо за твою улыбку и тепло.</p>
         
-       <button onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);">Нажми сюда, солнце</button>
+        <!-- Кнопка с защитой цвета -->
+        <button onclick="revealSecret()" style="background: #ff4d6d !important; background-color: #ff4d6d !important; color: #ffffff !important; border: none !important; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); transition: 0.3s;">Нажми сюда, солнце</button>
         
+        <!-- Скрытая розовая плашка -->
         <div id="secret-message" class="hidden" style="background: #fff0f3 !important; background-color: #fff0f3 !important; border-left: 5px solid #ff4d6d !important; padding: 15px; border-radius: 10px; margin-top: 20px;">
-        <p style="color: #ff4d6d !important; font-weight: bold; margin: 0;">Ты прекрасна каждую секунду! И с каждым днем я люблю тебя все сильнее. ✨</p>
+            <p style="color: #ff4d6d !important; font-weight: bold; margin: 0;">Ты прекрасна каждую секунду! И с каждым днем я люблю тебя все сильнее. ✨</p>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <div id="hearts-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 0;"></div>
 </body>
 </html>
