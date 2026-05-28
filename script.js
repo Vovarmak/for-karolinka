@@ -81,7 +81,7 @@ function updateAllClocks() {
 
 // 4. ЖИВЫЕ ТАЙМЕРЫ
 function updateAllTimers() {
-    const knownDate = new Date(2025, 5, 12, 2, 0, 0);  // 12 июня 2025
+    const knownDate = new Date(2025, 5, 12, 0, 0, 0);  // 12 июня 2025
     const datingDate = new Date(2025, 7, 28, 21, 15, 0); // 28 августа 2025, 21:15
     const now = new Date();
 
